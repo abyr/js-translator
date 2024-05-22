@@ -1,0 +1,24 @@
+{
+  "name": "js-translator",
+  "version": "1.0.0",
+  "description": "Fetch i18n file, store and find a translation",
+  "type": "module",
+  "main": "tests.js",
+  "scripts": {
+    "test": "node tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abyr/js-translator.git"
+  },
+  "keywords": [
+    "i18n",
+    "translate"
+  ],
+  "author": "Oleksandr Denysenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abyr/js-translator/issues"
+  },
+  "homepage": "https://github.com/abyr/js-translator#readme"
+}
