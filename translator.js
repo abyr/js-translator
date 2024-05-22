@@ -67,7 +67,6 @@ class Translator {
     async fetchLangFile(langCode) {
         await fetch(`/i18n/${langCode}.json`)
             .then(data => {
-                console.log('data', data);
                 return data.json();
             })
             .then(dict => {
