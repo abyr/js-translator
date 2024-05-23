@@ -80,5 +80,28 @@ group(filePath, () => {
         tester.equal('вітаю, {name}', translator.getTranslation('hello$name'));
 
     });
+
+    test('translate with empty dictionary throws error', () => {
+        const translator = new Translator({ lang: 'uk' });
+        let errorText;
+
+        try {
+            translator.getTranslation('unknown');
+        } catch (err) {
+            errorText = err.message;
+        }
+
+        tester.equal('Missing dictionary for uk', errorText);
+    });
+
+    test('translate unknown', () => {
+        const translator = new Translator({ lang: 'uk' });
+
+        translator.setDictionary({});
+
+        const res = translator.getTranslation('unknown');
+
+        tester.assert(typeof res === 'undefined');
+    });
     
 });

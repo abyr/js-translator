@@ -49,6 +49,11 @@ class Translator {
      */
     getTranslation(key) {
         const dict = this.getDictionary();
+
+        if (!dict) {
+            throw new Error(`Missing dictionary for ${this.getLangCode()}`);
+        }
+
         const res = dict[key];
 
         if (!res) {
