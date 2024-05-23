@@ -44,7 +44,21 @@ group(filePath, () => {
         tester.equal('uk', translator.getLangCode());
     });
 
-    test('translate', () => {
+    test('default base path', () => {
+        const translator = new Translator({ lang: 'uk' });
+
+        tester.equal('/i18n/uk.json', translator.getLangFilePath());
+    });
+
+    test('set base path', () => {
+        const translator = new Translator({ 
+            lang: 'uk', basePath: './i18n' 
+        });
+
+        tester.equal('./i18n/uk.json', translator.getLangFilePath());
+    });
+
+    test('simple translate', () => {
         const translator = new Translator({ lang: 'uk' });
 
         translator.setDictionary({
@@ -52,6 +66,19 @@ group(filePath, () => {
         });
 
         tester.equal('вітаю', translator.getTranslation('hello'));
+    });
+
+    test('translate with special chars', () => {
+        const translator = new Translator({ lang: 'uk' });
+
+        translator.setDictionary({
+            'hello': 'вітаю',
+            'hello$name': 'вітаю, {name}',
+        });
+
+        tester.equal('вітаю', translator.getTranslation('hello'));
+        tester.equal('вітаю, {name}', translator.getTranslation('hello$name'));
+
     });
     
 });

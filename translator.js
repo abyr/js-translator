@@ -6,6 +6,7 @@ class Translator {
     /**
      * @param {Object} options 
      * @param {string} [options.lang] 
+     * @param {string} [options.basePath] 
      */
     constructor(options = {}) {
         if (options.lang) {
@@ -14,6 +15,13 @@ class Translator {
             const localLang = this.getLocalLanguage();
 
             this.setLangCode(localLang);
+        }
+
+        if (options.basePath) {
+            this.setBasePath(options.basePath);
+        } else {
+            this.setBasePath('/i18n');
+
         }
     }
     
@@ -65,7 +73,9 @@ class Translator {
      * @param {String} langCode 
      */
     async fetchLangFile(langCode) {
-        await fetch(`/i18n/${langCode}.json`)
+        const url = this.getLangFilePath();
+
+        await fetch(url)
             .then(data => {
                 return data.json();
             })
@@ -108,7 +118,33 @@ class Translator {
     getDictionary() {
         return this.translations || null;
     }
+
+    /**
+     * @protected
+     * @returns {String}
+     */
+    getLangFilePath() {
+        const basePath = this.getBasePath();
+        const langCode = this.getLangCode();
+
+        return `${basePath}/${langCode}.json`
+    }
     
+    /**
+     * @protected
+     * @param {String} basePath 
+     */
+    setBasePath(basePath) {
+        this.basePath = basePath;
+    }
+
+    /**
+     * @returns {String} 
+     */
+    getBasePath() {
+        return this.basePath;
+    }
+
     /**
      * @private
      * @returns {Navigator}
